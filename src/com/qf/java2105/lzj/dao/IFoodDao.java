@@ -46,4 +46,11 @@ public interface IFoodDao {
      * @return 结果
      */
     Integer deleteById(Integer foodId) throws SQLException;
+
+    /**
+     * 校验食品名称
+     * @param foodName 食品名称
+     * @return 结果
+     */
+    Integer existsFoodName(String foodName) throws SQLException;
 }

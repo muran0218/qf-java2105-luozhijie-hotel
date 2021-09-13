@@ -45,4 +45,11 @@ public interface IFoodTypeService {
      * @return 结果
      */
     ResultVO<FoodType> save(FoodType foodType);
+
+    /**
+     * 验证菜系名是否存在
+     * @param typeName 菜系名
+     * @return 结果
+     */
+    ResultVO existsFoodName(String typeName);
 }

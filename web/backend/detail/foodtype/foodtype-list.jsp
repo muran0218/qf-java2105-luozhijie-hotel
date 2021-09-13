@@ -23,7 +23,7 @@
 	</div>
 	<!-- 过滤条件 -->
 	<div id="QueryArea">
-		<form action="/foodType/search" method="post">
+		<form action="/foodType?method=search" method="post">
 			<input type="hidden" name="method" value="search">
 			&nbsp;&nbsp;菜系名称: <input type="text" name="keyword" value="${keyword}" placeholder="请输入菜系名称" title="请输入菜系名称">
 			<input type="submit" value="搜索">
@@ -48,8 +48,8 @@
 						<td>${foodType.typeId}</td>
 						<td>${foodType.typeName}</td>
 						<td>
-							<a href="/foodType/updateUI?id=${foodType.typeId}" class="FunctionButton">更新</a>
-							<a href="/foodType/delete?typeId=${foodType.typeId}" onClick="return delConfirm('${foodType.typeName}');" class="FunctionButton">删除</a>
+							<a href="/foodType?method=updateUI&id=${foodType.typeId}" class="FunctionButton">更新</a>
+							<a href="/foodType?method=delete&typeId=${foodType.typeId}" onClick="return delConfirm('${foodType.typeName}');" class="FunctionButton">删除</a>
 						</td>
 					</tr>
 				</c:forEach>

@@ -26,13 +26,15 @@ public class FoodTypeUpdateUI extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
+        ResultVO<FoodType> foodTypeResultVO = null;
         //判断是否为空
         if (!StringUtils.isEmpty(id)) {
             //不为空
-            ResultVO<FoodType> foodTypeResultVO = foodTypeService.findById(Integer.valueOf(id));
+            foodTypeResultVO = foodTypeService.findById(Integer.valueOf(id));
             request.setAttribute("foodTypeById",foodTypeResultVO.getData());
             request.getRequestDispatcher(request.getContextPath()+"/backend/detail/foodtype/foodtype-update.jsp").forward(request,response);
         }
+        response.getWriter().write("<script>alert(" + MessageConstant.FOODTYPE_ID_CANNOT_BE_EMPTY + ");</script>");
 
     }
 

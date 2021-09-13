@@ -24,7 +24,7 @@
 
 	<!-- 过滤条件 -->
 	<div id="QueryArea">
-		<form action="/food/search" method="post">
+		<form action="/food?method=search" method="post">
 			<input type="hidden" name="method" value="search">
 			<input type="text" name="keyword" value="${keyword}" placeholder="请输入菜品名称" title="请输入菜品名称">
 			<input type="submit" value="搜索">
@@ -54,8 +54,8 @@
 				<td>${food.foodPrice}&nbsp;</td>
 				<td>${food.foodMprice}&nbsp;</td>
 				<td>
-					<a href="/food/updateUI?foodId=${food.foodId}" class="FunctionButton">更新</a>
-					<a href="/food/delete?foodId=${food.foodId}" onClick="return delConfirm('${food.foodName}');" class="FunctionButton">删除</a>
+					<a href="/food?method=updateUI&foodId=${food.foodId}" class="FunctionButton">更新</a>
+					<a href="/food?method=delete&foodId=${food.foodId}" onClick="return delConfirm('${food.foodName}');" class="FunctionButton">删除</a>
 				</td>
 			</tr>
 
@@ -67,7 +67,7 @@
 	
    <!-- 其他功能超链接 -->
 	<div id="TableTail" align="center">
-		<div class="FunctionButton"><a href="/food/saveUI">添加</a></div>
+		<div class="FunctionButton"><a href="/food?method=saveUI">添加</a></div>
     </div> 
 </div>
 </body>

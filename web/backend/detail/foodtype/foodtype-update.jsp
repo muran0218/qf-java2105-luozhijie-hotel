@@ -34,7 +34,7 @@
 <!-- 主内容区域（数据列表或表单显示） -->
 <div id="MainArea">
 	<!-- 表单内容 -->
-	<form action="/foodType/update" method="post">
+	<form action="/foodType?method=update" method="post">
 	
 		<!-- 本段标题（分段标题） -->
 		<div class="ItemBlock_Title">
@@ -48,7 +48,7 @@
 						<tr>
 							<td width="80px">菜系名称</td>
 							<td>
-								<input type="text" name="typeName" placeholder="请输入菜品名称" class="InputStyle" value="${foodTypeById.typeName}"/> *
+								<input type="text" id="typeName" name="typeName" placeholder="请输入菜品名称" class="InputStyle" value="${foodTypeById.typeName}"/> * <span id="foodTypeNameMsg"></span>
 								<input type="hidden" name="typeId" value="${foodTypeById.typeId}" />
 							</td>
 						</tr>
@@ -61,7 +61,7 @@
 		<div id="InputDetailBar">
 			
 				
-					 <input type="submit" value="修改" class="FunctionButtonInput">
+					 <input type="submit" id="foodTypeAddBtn" value="修改" class="FunctionButtonInput">
 				
 				
 			
@@ -75,4 +75,20 @@
 
 
 </body>
+<script>
+	$(function () {
+		$("#typeName").change(function () {
+			var typeNameVal = $(this).val();
+			$.get('/foodType?method=existsTypeName', {typeName: typeNameVal}, function (result) {
+				if(result.success) {
+					$("#foodTypeNameMsg").html("<span style='color: green;'>" + result.message + "</span>");
+					$("#foodTypeAddBtn").attr("disabled", false);
+				} else {
+					$("#foodTypeNameMsg").html("<span style='color: red;'>" + result.message + "</span>");
+					$("#foodTypeAddBtn").attr("disabled", true);
+				}
+			}, "json");
+		});
+	})
+</script>
 </html>

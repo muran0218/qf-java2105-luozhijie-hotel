@@ -45,4 +45,11 @@ public interface IFoodService {
      * @return 结果
      */
     ResultVO<Integer> deleteById(Integer foodId);
+
+    /**
+     * 校验是食品名称否存在
+     * @param foodName 食品名称
+     * @return 结果
+     */
+    ResultVO existsFoodName(String foodName);
 }

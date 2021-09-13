@@ -7,11 +7,16 @@ package com.qf.java2105.lzj.constant;
  */
 public interface MessageConstant {
 
+    String THE_SERVER_IS_BUSY_TRY_AGAIN_LATER = "服务器正忙，稍后重试！";
+
     String QUERY_FOODTYPE_LIST_SUCCESS = "查询菜系列表成功";
     String QUERY_FOODTYPE_LIST_FAIL = "查询菜系列表失败";
     String QUERY_FOODTYPE_SUCCESS = "查询菜系表成功";
     String QUERY_FOODTYPE_FAIL = "查询菜系失败";
     String FOODTYPE_ID_CANNOT_BE_EMPTY = "菜系id不能为空";
+    String FOODTYPE_NAME_CANNOT_BE_EMPTY = "菜系名称不能为空";
+    String CUISINE_NAME_NOT_FOUND_AVAILABLE = "菜系名不存在，可用！";
+    String THE_NAME_OF_THE_CUISINE_EXISTS_AND_IS_NOT_AVAILABLE = "菜系名存在，不可用！";
     String UPDATE_FOODTYPE_SUCCESS = "修改菜系表成功";
     String UPDATE_FOODTYPE_FAIL = "修改菜系失败";
     String DELETE_FOODTYPE_SUCCESS = "删除菜系表成功";
@@ -28,4 +33,6 @@ public interface MessageConstant {
     String UPDATE_FOOD_FAIL = "修改菜品失败";
     String DELETE_FOOD_SUCCESS = "删除菜品表成功";
     String DELETE_FOOD_FAIL = "删除菜品失败";
+    String FOOD_NAME_NOT_FOUND_AVAILABLE = "菜品名不存在，可用！";
+    String THE_NAME_OF_THE_FOOD_EXISTS_AND_IS_NOT_AVAILABLE = "菜品名存在，不可用！";
 }

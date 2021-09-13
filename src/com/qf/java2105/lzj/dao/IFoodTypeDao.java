@@ -46,4 +46,11 @@ public interface IFoodTypeDao {
      */
     Integer save(FoodType foodType) throws SQLException;
 
+    /**
+     * 验证菜系名称是否存在
+     * @param typeName 菜系名
+     * @return 结果
+     */
+    Integer existsFoodName(String typeName) throws SQLException;
+
 }

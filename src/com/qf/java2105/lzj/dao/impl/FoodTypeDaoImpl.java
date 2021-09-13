@@ -7,6 +7,7 @@ import com.qf.java2105.lzj.utils.JdbcUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -51,6 +52,13 @@ public class FoodTypeDaoImpl implements IFoodTypeDao {
         queryRunner  = new QueryRunner(JdbcUtil.getDataSource());
         String sql = "INSERT INTO `t_food_type` (`type_name`,`is_delete`) VALUES (?,?)";
         return queryRunner.update(sql,foodType.getTypeName(),foodType.getIsDelete());
+    }
+
+    @Override
+    public Integer existsFoodName(String typeName) throws SQLException {
+        queryRunner  = new QueryRunner(JdbcUtil.getDataSource());
+        String sql = "SELECT food_id FROM t_food WHERE food_name = ? limit 1";
+        return queryRunner.query(sql,new ScalarHandler<>(),typeName);
     }
 
 

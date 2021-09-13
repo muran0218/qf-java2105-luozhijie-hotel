@@ -16,6 +16,7 @@ public class StaticFileListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ServletContext servletContext = servletContextEvent.getServletContext();
         servletContext.setAttribute("backend_detail_path",servletContext.getContextPath() + "/backend/detail");
+        servletContext.setAttribute("front_detail_path", servletContext.getContextPath() + "/front/detail");
     }
 
     @Override

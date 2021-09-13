@@ -5,6 +5,7 @@ import com.qf.java2105.lzj.constant.MessageConstant;
 import com.qf.java2105.lzj.dao.IFoodDao;
 import com.qf.java2105.lzj.dao.impl.FoodDaoImpl;
 import com.qf.java2105.lzj.entity.ResultVO;
+import com.qf.java2105.lzj.factory.BeanFactory;
 import com.qf.java2105.lzj.pojo.Food;
 import com.qf.java2105.lzj.pojo.FoodType;
 import com.qf.java2105.lzj.service.IFoodService;
@@ -23,7 +24,7 @@ import java.util.Map;
  * @Date 2021/9/12
  */
 public class FoodServiceImpl implements IFoodService {
-    private IFoodDao dao = new FoodDaoImpl();
+    private IFoodDao foodDao = (IFoodDao) BeanFactory.getBean("foodDao");
     @Override
     public ResultVO<List<Food>> findByName(String foodName) {
         try {
@@ -34,7 +35,7 @@ public class FoodServiceImpl implements IFoodService {
                 foodName = "%" + foodName + "%";
             }
             //调方法
-            List<Map<String, Object>> foodMap = dao.findByName(foodName);
+            List<Map<String, Object>> foodMap = foodDao.findByName(foodName);
             //创建list集合
             List<Food> foodList = new ArrayList<>();
             //遍历map集合
@@ -67,7 +68,7 @@ public class FoodServiceImpl implements IFoodService {
     public ResultVO<Food> findById(Integer foodId) {
         try {
             //调方法
-            Food food = dao.findById(foodId);
+            Food food = foodDao.findById(foodId);
             return ResultVO.ok(MessageConstant.QUERY_FOOD_LIST_SUCCESS,food);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,7 +81,7 @@ public class FoodServiceImpl implements IFoodService {
         try {
             JdbcUtil.begin();
             //调方法
-            Integer integer = dao.save(food);
+            Integer integer = foodDao.save(food);
             if (integer > 0) {
                 JdbcUtil.commit();
                return ResultVO.ok(MessageConstant.SAVE_FOOD_SUCCESS);
@@ -98,7 +99,7 @@ public class FoodServiceImpl implements IFoodService {
         try {
             JdbcUtil.begin();
             //调方法
-            Integer integer = dao.update(food);
+            Integer integer = foodDao.update(food);
             if (integer > 0 ) {
                 return  ResultVO.ok(MessageConstant.UPDATE_FOOD_SUCCESS);
             }
@@ -113,7 +114,7 @@ public class FoodServiceImpl implements IFoodService {
     public ResultVO<Integer> deleteById(Integer foodId) {
         try {
             JdbcUtil.begin();
-            Integer integer = dao.deleteById(foodId);
+            Integer integer = foodDao.deleteById(foodId);
             if (integer > 0) {
                 return  ResultVO.ok(MessageConstant.DELETE_FOOD_SUCCESS);
             }
@@ -122,5 +123,19 @@ public class FoodServiceImpl implements IFoodService {
             return  ResultVO.error(MessageConstant.DELETE_FOOD_FAIL);
         }
         return null;
+    }
+
+    @Override
+    public ResultVO existsFoodName(String foodName) {
+        Integer integer = null;
+        try {
+            integer = foodDao.existsFoodName(foodName);
+            if (integer == null) {
+                ResultVO.ok(MessageConstant.FOOD_NAME_NOT_FOUND_AVAILABLE);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ResultVO.error(MessageConstant.THE_NAME_OF_THE_FOOD_EXISTS_AND_IS_NOT_AVAILABLE);
     }
 }

@@ -35,7 +35,7 @@
 <!-- 主内容区域（数据列表或表单显示） -->
 <div id="MainArea">
 	<!-- 表单内容 -->
-	<form action="/food/save" method="post" enctype="multipart/form-data"><%--   --%>
+	<form action="/food?method=save" method="post" enctype="multipart/form-data"><%--   --%>
 		<!-- 本段标题（分段标题） -->
 		<div class="ItemBlock_Title">
         	<img width="4" height="7" border="0" src="${backend_detail_path}/style/images/item_point.gif"> 菜品信息&nbsp;
@@ -57,7 +57,7 @@
 						</tr>
 						<tr>
 							<td width="80px">菜名</td>
-							<td><input type="text" name="foodName" class="InputStyle" value=""/> *</td>
+							<td><input type="text" id="foodName" name="foodName" class="InputStyle" value=""/> * <span id="foodNameMsg"></span></td>
 						</tr>
 						<tr>
 							<td>价格</td>
@@ -90,7 +90,7 @@
 
 
 
-					 <input type="submit" value="添加" class="FunctionButtonInput">
+					 <input type="submit" id="foodAddBtn" value="添加" class="FunctionButtonInput">
 
 
 
@@ -99,4 +99,21 @@
 	</form>
 </div>
 </body>
+<script>
+	$(function () {
+		$("#foodName").change(function () {
+			var foodNameVal = $(this).val();
+			$.get('/food?method=existsFoodName', {foodName: foodNameVal}, function (result) {
+				if(result.success) {
+					$("#foodNameMsg").html("<span style='color: green;'>" + result.message + "</span>");
+					$("#foodAddBtn").attr("disabled", false);
+				} else {
+					$("#foodNameMsg").html("<span style='color: red;'>" + result.message + "</span>");
+					$("#foodAddBtn").attr("disabled", true);
+				}
+			}, "json");
+		});
+	})
+
+</script>
 </html>
