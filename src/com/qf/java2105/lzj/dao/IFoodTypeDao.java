@@ -53,4 +53,10 @@ public interface IFoodTypeDao {
      */
     Integer existsFoodName(String typeName) throws SQLException;
 
+    /**
+     * 查所有
+     * @return 集合
+     */
+    List<FoodType> findAll() throws SQLException;
+
 }

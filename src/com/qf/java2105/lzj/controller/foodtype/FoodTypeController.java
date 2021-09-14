@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -142,5 +143,22 @@ public class FoodTypeController extends BaseServlet {
         }
         //菜系名为空
         return"<script>alert(" + MessageConstant.FOODTYPE_NAME_CANNOT_BE_EMPTY + ");</script>";
+    }
+
+    /**
+     * 查所有
+     */
+    public String findAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+        HttpSession session = request.getSession();
+        //先从session获取菜系数据
+        List<FoodType> foodTypeList = (List<FoodType>) session.getAttribute("front_types");
+        if(foodTypeList == null || foodTypeList.size() == 0) {
+            //没有，从数据库查询
+            ResultVO<List<FoodType>> resultVO = foodTypeService.findAll();
+            session.setAttribute("front_types", resultVO.getData());
+            return JSON.toJSONString(resultVO);
+        }
+        //有，直接返回
+        return JSON.toJSONString(ResultVO.ok("session已经有数据了", foodTypeList));
     }
 }

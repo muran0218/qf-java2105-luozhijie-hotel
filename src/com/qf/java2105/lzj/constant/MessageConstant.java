@@ -35,4 +35,7 @@ public interface MessageConstant {
     String DELETE_FOOD_FAIL = "删除菜品失败";
     String FOOD_NAME_NOT_FOUND_AVAILABLE = "菜品名不存在，可用！";
     String THE_NAME_OF_THE_FOOD_EXISTS_AND_IS_NOT_AVAILABLE = "菜品名存在，不可用！";
+
+    String PAGING_SUCCESS = "分页成功！";
+    String PAGING_FAILURE = "分页失败！";
 }

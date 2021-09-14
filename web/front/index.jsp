@@ -1,4 +1,4 @@
-﻿
+﻿<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,12 +7,8 @@
 <title>餐馆王平台</title>
 
 
+<jsp:include page="./resource/static_resource.jsp"/>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script type="text/javascript" src="detail/style/js/jquery.js"></script>
-<script type="text/javascript" src="detail/style/js/page_common.js"></script>
-<link href="detail/style/css/common_style_blue.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" href="detail/style/css/index_1.css" />
 	<style type="text/css">
 	* {
 		margin: 0px;
@@ -27,7 +23,7 @@
 		list-style:none;
 	} 
 	#dish_2 li{
-		background:url(style/images/img/btn.gif);
+		background:url(${front_detail_path}/style/images/img/btn.gif);
 		width:164px;
 		height:47px;
 		text-align:center;
@@ -40,7 +36,7 @@
 	<div class="index_all" style="text-align:center;">
 		<!--上面的背景层-->
 		<div>
-			<img src="detail/style/images/flower.gif" />
+			<img src="${front_detail_path}/style/images/flower.gif" />
 		</div>
 		<!--中间层-->
 		<div id="index_center">
@@ -55,7 +51,7 @@
 				<!--菜单层的中间-->
 				<div class="bg_middle">
 					<img
-						src="detail/style/images/index_menu.gif"
+						src="${front_detail_path}/style/images/index_menu.gif"
 						border="0" usemap="#Map" />
 					<map name="Map" id="Map">
 						<area shape="rect" coords="164,99,354,199" href="#" />
@@ -70,20 +66,8 @@
 				<ul style=" display:inline-table">
 					
 						<li>
-							<a href="detail/caidan.html">
-								纽约
-							</a>
-						</li>
-					
-						<li>
-							<a href="detail/caidan.html">
-								丹麦
-							</a>
-						</li>
-					
-						<li>
-							<a href="detail/caidan.html">
-								伦敦
+							<a href="/front?method=findByPageAndCondition">
+								点菜
 							</a>
 						</li>
 					
@@ -93,8 +77,16 @@
 		
 		<!--下面的背景层-->
 		<div>
-			<img src="detail/style/images/flower.gif" />
+			<img src="${front_detail_path}/style/images/flower.gif" />
 		</div>
 	</div>
 </body>
+<script>
+	$(function () {
+		//打开首页就去加载菜系数据
+		$.get("/foodType?method=findAll", {}, function (result) {
+			console.log(result);
+		}, "json");
+	})
+</script>
 </html>

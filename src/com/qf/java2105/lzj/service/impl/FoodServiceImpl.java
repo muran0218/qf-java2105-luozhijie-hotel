@@ -131,7 +131,7 @@ public class FoodServiceImpl implements IFoodService {
         try {
             integer = foodDao.existsFoodName(foodName);
             if (integer == null) {
-                ResultVO.ok(MessageConstant.FOOD_NAME_NOT_FOUND_AVAILABLE);
+              return  ResultVO.ok(MessageConstant.FOOD_NAME_NOT_FOUND_AVAILABLE);
             }
         } catch (SQLException e) {
             e.printStackTrace();

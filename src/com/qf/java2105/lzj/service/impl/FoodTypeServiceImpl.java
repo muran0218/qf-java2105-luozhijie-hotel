@@ -115,4 +115,15 @@ public class FoodTypeServiceImpl implements IFoodTypeService {
         }
         return ResultVO.error(MessageConstant.THE_NAME_OF_THE_CUISINE_EXISTS_AND_IS_NOT_AVAILABLE);
     }
+
+    @Override
+    public ResultVO<List<FoodType>> findAll() {
+        try {
+            List<FoodType> foodTypeList = foodTypeDao.findAll();
+            return ResultVO.ok(MessageConstant.QUERY_FOODTYPE_LIST_SUCCESS,foodTypeList);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ResultVO.error(MessageConstant.QUERY_FOODTYPE_LIST_FAIL);
+    }
 }

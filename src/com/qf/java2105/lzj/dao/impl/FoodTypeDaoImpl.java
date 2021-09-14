@@ -61,5 +61,12 @@ public class FoodTypeDaoImpl implements IFoodTypeDao {
         return queryRunner.query(sql,new ScalarHandler<>(),typeName);
     }
 
+    @Override
+    public List<FoodType> findAll() throws SQLException {
+        queryRunner  = new QueryRunner(JdbcUtil.getDataSource());
+        String sql = "SELECT `type_id` typeId,`type_name` typeName,`is_delete` isDelete FROM `t_food_type` WHERE `is_delete` = 0";
+        return queryRunner.query(sql,new BeanListHandler<>(FoodType.class));
+    }
+
 
 }

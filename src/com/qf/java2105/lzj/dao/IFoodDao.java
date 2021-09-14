@@ -53,4 +53,24 @@ public interface IFoodDao {
      * @return 结果
      */
     Integer existsFoodName(String foodName) throws SQLException;
+
+    /**
+     * 分页
+     * @param currentPage 当前页数
+     * @param pageSize 每页显示多少条
+     * @param typeId 查询条件 菜系id
+     * @param foodName 查询条件 菜品名称
+     * @return 集合
+     * @throws SQLException 异常
+     */
+    List<Food> findByPageAndCondition(Integer currentPage , Integer pageSize ,Integer typeId ,String foodName) throws SQLException;
+
+    /**
+     * 统计食品总数
+     * @param typeId 查询条件 菜系id
+     * @param foodName 查询条件 菜品名称
+     * @return 结果
+     * @throws SQLException 异常
+     */
+    Long countByCondition(Integer typeId ,String foodName) throws SQLException;
 }

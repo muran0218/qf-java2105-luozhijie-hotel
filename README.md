@@ -23,3 +23,28 @@
 > <Context docBase="D:\apache-tomcat-8.5.54\webapps\hotel" path="" reloadable="false"/>
 > ```
 
+# 配置工厂模式之后请求服务层后dao层为空
+
+>原因 ：把每个模块的dao实现和service实现写在一起了
+
+```properties
+foodTypeDao=com.qf.java2105.lzj.dao.impl.FoodTypeDaoImpl
+foodDao=com.qf.java2105.lzj.dao.impl.FoodDaoImpl
+
+foodTypeService=com.qf.java2105.lzj.service.impl.FoodTypeServiceImpl
+foodService=com.qf.java2105.lzj.service.impl.FoodServiceImpl
+
+```
+
+>解决：把dao实现全部写在上面
+
+```properties
+foodDao=com.qf.java2105.lzj.dao.impl.FoodDaoImpl
+foodTypeDao=com.qf.java2105.lzj.dao.impl.FoodTypeDaoImpl
+
+foodService=com.qf.java2105.lzj.service.impl.FoodServiceImpl
+foodTypeService=com.qf.java2105.lzj.service.impl.FoodTypeServiceImpl
+frontService=com.qf.java2105.lzj.service.impl.FrontServiceImpl
+
+```
+

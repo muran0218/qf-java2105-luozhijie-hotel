@@ -5,10 +5,12 @@ import com.qf.java2105.lzj.pojo.Food;
 import com.qf.java2105.lzj.utils.JdbcUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -87,5 +89,56 @@ public class FoodDaoImpl implements IFoodDao {
         queryRunner = new QueryRunner(JdbcUtil.getDataSource());
         String sql = "SELECT food_id FROM t_food WHERE food_name = ? limit 1";
         return queryRunner.query(sql, new ScalarHandler<>(), foodName);
+    }
+
+    @Override
+    public List<Food> findByPageAndCondition(Integer currentPage, Integer pageSize ,Integer typeId ,String foodName) throws SQLException {
+        //创建一个集合放参数
+        List<Object> params = new ArrayList<>();
+        queryRunner = new QueryRunner(JdbcUtil.getDataSource());
+        //创建一个可变的数组
+        StringBuffer sql = new StringBuffer("SELECT\n" +
+                                        "  food_id foodId,\n" +
+                                        "  type_id typeId,\n" +
+                                        "  food_name foodName,\n" +
+                                        "  food_price foodPrice,\n" +
+                                        "  food_mprice foodMprice,\n" +
+                                        "  food_image foodImage,\n" +
+                                        "  food_desc foodDesc\n" +
+                                        "FROM t_food \n" +
+                                        "where 1=1 ");
+        //食品名称绝对不为空 直接追加
+        sql = sql.append(" and food_name like ? ");
+        params.add(foodName);
+        //判断菜系id是否为空
+        if (0 != typeId) {
+            sql = sql.append(" and type_id = ? ");
+            params.add(typeId);
+        }
+        sql.append(" and is_delete = 0 ");
+        //追加分页
+        sql = sql.append(" limit ?,? ");
+        params.add(currentPage);
+        params.add(pageSize);
+        return queryRunner.query(sql.toString(),new BeanListHandler<>(Food.class),params.toArray());
+    }
+
+    @Override
+    public Long countByCondition(Integer typeId ,String foodName) throws SQLException {
+        //创建一个集合放参数
+        List<Object> params = new ArrayList<>();
+        queryRunner = new QueryRunner(JdbcUtil.getDataSource());
+        //创建一个可变的数组
+        StringBuffer sql = new StringBuffer("SELECT COUNT(1) FROM t_food where 1=1 ");
+        //食品名称不能为空直接追加
+        sql = sql.append(" and food_name like ? ");
+        params.add(foodName);
+        //判断菜系id
+        if (0 != typeId) {
+            sql = sql.append(" and type_id = ? ");
+            params.add(typeId);
+        }
+        sql.append(" and is_delete = 0 ");
+        return queryRunner.query(sql.toString(), new ScalarHandler<>(),params.toArray());
     }
 }

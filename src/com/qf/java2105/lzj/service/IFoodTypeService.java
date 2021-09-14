@@ -52,4 +52,10 @@ public interface IFoodTypeService {
      * @return 结果
      */
     ResultVO existsFoodName(String typeName);
+
+    /**
+     * 查询所有
+     * @return
+     */
+    ResultVO<List<FoodType>> findAll();
 }

@@ -156,7 +156,7 @@ public class FoodController extends BaseServlet {
             foodResultVO = foodService.save(food);
             if (foodResultVO.getSuccess()) {
                 //去菜品列表页面
-                return ResponseMessageConstant.PREFIX_REDIRECT+request.getContextPath() + "/food/search";
+                return ResponseMessageConstant.PREFIX_REDIRECT+request.getContextPath() + "/food?method=search";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -177,6 +177,21 @@ public class FoodController extends BaseServlet {
         //菜系名为空
         return"<script>alert(" + MessageConstant.FOODTYPE_NAME_CANNOT_BE_EMPTY + ");</script>";
     }
+
+    /**
+     * 根据id查询
+     */
+    public String findById(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //获取参数
+        String foodId = request.getParameter("foodId");
+        if (!StringUtils.isEmpty(foodId)) {
+            ResultVO<Food> foodResultVO = foodService.findById(Integer.valueOf(foodId));
+            request.setAttribute("foods",foodResultVO.getData());
+            return ResponseMessageConstant.PREFIX_FORWARD + request.getContextPath() + "/front/detail/caixiangxi.jsp";
+        }
+        return "<script>alert(" + MessageConstant.FOOD_ID_CANNOT_BE_EMPTY + ");</script>";
+    }
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
