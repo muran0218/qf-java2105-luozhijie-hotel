@@ -66,6 +66,13 @@ public class User implements Serializable {
     public User() {
     }
 
+    public User(String userName, String password, Integer isAdmin, Integer gender) {
+        this.userName = userName;
+        this.password = password;
+        this.isAdmin = isAdmin;
+        this.gender = gender;
+    }
+
     public User(Integer userId, String userName, String password, String nickName, Integer isAdmin, String phone, Integer gender, Integer userStatus, Date userCreateTime, Date userUpdateTime, Integer isDelete, Integer isMember, BigDecimal balance) {
         this.userId = userId;
         this.userName = userName;

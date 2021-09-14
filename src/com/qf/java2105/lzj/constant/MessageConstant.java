@@ -38,4 +38,14 @@ public interface MessageConstant {
 
     String PAGING_SUCCESS = "分页成功！";
     String PAGING_FAILURE = "分页失败！";
+
+    String USER_NOT_FOUND_NO_REGISTER = "用户不存在，请先注册！";
+    String LOGIN_SUCCESSFULLY = "登录成功！";
+    String USER_REGISTRATION_SUCCEEDED = "用户注册成功！";
+    String USER_REGISTRATION_FAIL = "用户注册失败！";
+    String THE_USER_NAME_CANNOT_BE_EMPTY = "用户名不能为空!";
+    String THE_PASSWORD_CANNOT_BE_EMPTY = "密码不能为空!";
+    String PASSWORD_MISMATCH = "密码不相等！";
+    String THE_USERNAME_ALREADY_EXISTS_AND_IS_NOT_AVAILABLE = "用户名已存在，不可用！";
+    String THE_USER_NAME_DOES_NOT_EXIST = "用户名不存在，可用！";
 }
