@@ -43,9 +43,9 @@ public class UserDaoImpl implements IUser {
     @Override
     public Integer addUser(User user) throws SQLException {
         queryRunner = new QueryRunner(JdbcUtil.getDataSource());
-        String sql = "INSERT INTO `t_user` (`username`,`password`,`is_admin`,`gender`)\n" +
+        String sql = "INSERT INTO `t_user` (`username`,`password`,`gender`,`is_member`)\n" +
                 "VALUES (?,?,?,?)";
-        return queryRunner.update(sql,user.getUserName(),user.getPassword(),user.getIsAdmin(),user.getGender());
+        return queryRunner.update(sql,user.getUserName(),user.getPassword(),user.getIsMember(),user.getGender());
     }
 
     @Override

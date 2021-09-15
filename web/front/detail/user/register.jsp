@@ -45,13 +45,13 @@
 				  </div>
 
 					<div class="form-group">
-						<label for="" class="col-sm-2 control-label">是否是管理员:</label>
+						<label for="" class="col-sm-2 control-label">是否成为会员:</label>
 						<div class="col-sm-10">
 							<label class="radio-inline">
-								<input type="radio" name="isAdmin" id="isAdmin1" value="1" checked> 是
+								<input type="radio" name="isMember" id="isAdmin1" value="1" checked> 是
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="isAdmin" id="isAdmin2" value="0"> 否
+								<input type="radio" name="isMember" id="isAdmin2" value="0"> 否
 							</label>
 						</div>
 					</div>

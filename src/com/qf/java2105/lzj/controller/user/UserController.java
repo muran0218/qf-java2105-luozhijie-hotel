@@ -72,7 +72,7 @@ public class UserController extends BaseServlet {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         String rwd = request.getParameter("rwd");
-        String isAdmin = request.getParameter("isAdmin");
+        String isMember = request.getParameter("isMember");
         String gender = request.getParameter("inlineRadioOptions");
 
         //判断
@@ -91,7 +91,7 @@ public class UserController extends BaseServlet {
         }
         String pwd = MD5Utils.md5(password);
         //创建用户实体
-        User user = new User(userName,pwd, Integer.valueOf(isAdmin), Integer.valueOf(gender));
+        User user = new User(userName,pwd, Integer.valueOf(gender), Integer.valueOf(isMember));
         //调用方法
         ResultVO resultVO = userService.register(user);
         return ResponseMessageConstant.PREFIX_FORWARD + request.getContextPath() + "/front/detail/user/login.jsp";

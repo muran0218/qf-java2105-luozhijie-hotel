@@ -129,7 +129,7 @@ margin-left: 10px;
 			<a target="right" href="javascript:void(0)">
 				<img width="78" height="20" src="style/images/help2.gif" />
 			</a>
-			<a target="_parent" href="javascript:void(0)">
+			<a target="_parent" href="../../front/detail/user/login.jsp">
 				<img width="78" height="20" alt="退出系统" src="style/images/logout.gif" />
 			</a>
 		</div>
