@@ -46,10 +46,12 @@ public class UserController extends BaseServlet {
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         if (StringUtils.isEmpty(userName.trim())) {
-            return "<script>alert(" + MessageConstant.THE_USER_NAME_CANNOT_BE_EMPTY + ");</script>";
+            return "<script>alert('" + MessageConstant.THE_USER_NAME_CANNOT_BE_EMPTY + "');" +
+                    "window.location.href=\"/front/detail/user/login.jsp\"</script>";
         }
         if (StringUtils.isEmpty(password.trim())) {
-            return "<script>alert(" + MessageConstant.THE_PASSWORD_CANNOT_BE_EMPTY + ");</script>";
+            return "<script>alert('" + MessageConstant.THE_PASSWORD_CANNOT_BE_EMPTY + "');" +
+                    "window.location.href=\"/front/detail/user/login.jsp\"</script>";
         }
         String pwd = MD5Utils.md5(password);
         //调登录方法
@@ -75,14 +77,17 @@ public class UserController extends BaseServlet {
 
         //判断
         if (StringUtils.isEmpty(userName.trim())) {
-            return "<script>alert(" + MessageConstant.THE_USER_NAME_CANNOT_BE_EMPTY + ");</script>";
+            return "<script>alert('" + MessageConstant.THE_USER_NAME_CANNOT_BE_EMPTY + "');" +
+                    "window.location.href=\"/front/detail/user/register.jsp\"</script>";
         }
         if (StringUtils.isEmpty(password.trim())) {
-            return "<script>alert(" + MessageConstant.THE_PASSWORD_CANNOT_BE_EMPTY + ");</script>";
+            return "<script>alert('" + MessageConstant.THE_PASSWORD_CANNOT_BE_EMPTY + "');" +
+                    "window.location.href=\"/front/detail/user/register.jsp\"</script>";
         }
         //判断密码是否相等
         if (!password.equals(rwd.trim())) {
-            return "<script>alert(" + MessageConstant.PASSWORD_MISMATCH + ");</script>";
+            return "<script>alert('" + MessageConstant.PASSWORD_MISMATCH + "');" +
+                    "window.location.href=\"/front/detail/user/register.jsp\"</script>";
         }
         String pwd = MD5Utils.md5(password);
         //创建用户实体
@@ -96,7 +101,8 @@ public class UserController extends BaseServlet {
         String userName = request.getParameter("userName");
         //判断
         if (StringUtils.isEmpty(userName.trim())) {
-            return "<script>alert(" + MessageConstant.THE_USER_NAME_CANNOT_BE_EMPTY + ");</script>";
+            return "<script>alert('" + MessageConstant.THE_USER_NAME_CANNOT_BE_EMPTY + "');" +
+                    "window.location.href=\"/front/detail/user/register.jsp\"</script>";
         }
         //调方法
         ResultVO resultVO = userService.existsUserName(userName);
