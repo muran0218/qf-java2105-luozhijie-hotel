@@ -9,6 +9,7 @@ import com.qf.java2105.lzj.entity.ResultVO;
 import com.qf.java2105.lzj.factory.BeanFactory;
 import com.qf.java2105.lzj.pojo.User;
 import com.qf.java2105.lzj.service.IUserService;
+import com.qf.java2105.lzj.utils.MD5Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,8 +51,9 @@ public class UserController extends BaseServlet {
         if (StringUtils.isEmpty(password.trim())) {
             return "<script>alert(" + MessageConstant.THE_PASSWORD_CANNOT_BE_EMPTY + ");</script>";
         }
+        String pwd = MD5Utils.md5(password);
         //调登录方法
-        ResultVO<User> userResultVO = userService.login(userName,password);
+        ResultVO<User> userResultVO = userService.login(userName,pwd);
         request.getSession().setAttribute("user",userResultVO.getData());
         //判断是否是管理员
         if (userResultVO.getData().getIsAdmin() == 1) {
@@ -82,9 +84,9 @@ public class UserController extends BaseServlet {
         if (!password.equals(rwd.trim())) {
             return "<script>alert(" + MessageConstant.PASSWORD_MISMATCH + ");</script>";
         }
-
+        String pwd = MD5Utils.md5(password);
         //创建用户实体
-        User user = new User(userName,password, Integer.valueOf(isAdmin), Integer.valueOf(gender));
+        User user = new User(userName,pwd, Integer.valueOf(isAdmin), Integer.valueOf(gender));
         //调用方法
         ResultVO resultVO = userService.register(user);
         return ResponseMessageConstant.PREFIX_FORWARD + request.getContextPath() + "/front/detail/user/login.jsp";
