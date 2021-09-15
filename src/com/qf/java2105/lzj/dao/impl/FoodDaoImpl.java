@@ -39,6 +39,14 @@ public class FoodDaoImpl implements IFoodDao {
     }
 
     @Override
+    public List<Food> findByTypeId(Integer typeId) throws SQLException {
+        queryRunner = new QueryRunner(JdbcUtil.getDataSource());
+        String sql = "SELECT t.`food_id` FROM `t_food` t,`t_food_type` tf " +
+                "WHERE  t.`type_id` = tf.`type_id` AND  t.`type_id` = ?";
+        return queryRunner.query(sql,new BeanListHandler<>(Food.class),typeId);
+    }
+
+    @Override
     public Food findById(Integer foodId) throws SQLException {
         queryRunner = new QueryRunner(JdbcUtil.getDataSource());
         String sql = "SELECT\n" +

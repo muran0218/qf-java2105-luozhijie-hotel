@@ -53,7 +53,8 @@ public class FoodController extends BaseServlet {
             return ResponseMessageConstant.PREFIX_FORWARD+request.getContextPath() + "/backend/detail/food/food-list.jsp";
         }
         //失败
-        return "<script>alert(" + foodResultVO.getMessage() + ");</script>";
+        return "<script>alert('" + foodResultVO.getMessage() + "');" +
+                "window.location.href=\"/food?method=search\";</script>";
     }
     /**
      * 修改ui
@@ -74,7 +75,8 @@ public class FoodController extends BaseServlet {
             //转发到修改页面
             return ResponseMessageConstant.PREFIX_FORWARD+request.getContextPath() + "/backend/detail/food/food-update.jsp";
         }
-        return "<script>alert(" + MessageConstant.FOOD_ID_CANNOT_BE_EMPTY + ");</script>";
+        return "<script>alert('" + MessageConstant.FOOD_ID_CANNOT_BE_EMPTY + "');" +
+                "window.location.href=\"/food?method=search\"</script>";
 
     }
     /**
@@ -104,7 +106,8 @@ public class FoodController extends BaseServlet {
         }
 
         //失败
-       return "<script>alert(" + foodResultVO.getMessage() + ");</script>";
+       return "<script>alert('" + foodResultVO.getMessage() + "');" +
+               "window.location.href=\"/food?method=search\"</script>";
     }
     /**
      * 删除
@@ -123,7 +126,8 @@ public class FoodController extends BaseServlet {
             e.printStackTrace();
         }
         //失败
-       return "<script>alert(" + foodResultVO.getMessage() + ");</script>";
+       return "<script>alert('" + foodResultVO.getMessage() + "');" +
+               "window.location.href=\"/food?method=search\"</script>";
     }
     /**
      * 新增
@@ -162,7 +166,8 @@ public class FoodController extends BaseServlet {
             e.printStackTrace();
         }
         //失败
-        return "<script>alert(" + foodResultVO.getMessage() + ");</script>";
+        return "<script>alert('" + foodResultVO.getMessage() + "');" +
+                "window.location.href=\"/food?method=search\"</script>";
     }
     /**
      * 校验菜系名称
@@ -175,7 +180,8 @@ public class FoodController extends BaseServlet {
             return JSON.toJSONString(resultVO);
         }
         //菜系名为空
-        return"<script>alert(" + MessageConstant.FOODTYPE_NAME_CANNOT_BE_EMPTY + ");</script>";
+        return"<script>alert('" + MessageConstant.FOODTYPE_NAME_CANNOT_BE_EMPTY + "');" +
+                "window.location.href=\"/food?method=search\"</script>";
     }
 
     /**
@@ -189,7 +195,8 @@ public class FoodController extends BaseServlet {
             request.setAttribute("foods",foodResultVO.getData());
             return ResponseMessageConstant.PREFIX_FORWARD + request.getContextPath() + "/front/detail/caixiangxi.jsp";
         }
-        return "<script>alert(" + MessageConstant.FOOD_ID_CANNOT_BE_EMPTY + ");</script>";
+        return "<script>alert('" + MessageConstant.FOOD_ID_CANNOT_BE_EMPTY + "');" +
+                "window.location.href=\"/front/detail/caidan.jsp\"</script>";
     }
 
     @Override

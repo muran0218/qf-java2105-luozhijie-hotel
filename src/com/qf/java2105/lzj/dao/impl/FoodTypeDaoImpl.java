@@ -57,7 +57,7 @@ public class FoodTypeDaoImpl implements IFoodTypeDao {
     @Override
     public Integer existsFoodName(String typeName) throws SQLException {
         queryRunner  = new QueryRunner(JdbcUtil.getDataSource());
-        String sql = "SELECT food_id FROM t_food WHERE food_name = ? limit 1";
+        String sql = "SELECT type_id FROM t_food_type WHERE type_name = ? and is_delete = 0 limit 1";
         return queryRunner.query(sql,new ScalarHandler<>(),typeName);
     }
 

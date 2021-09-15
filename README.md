@@ -48,3 +48,24 @@ frontService=com.qf.java2105.lzj.service.impl.FrontServiceImpl
 
 ```
 
+#  项目中alert弹框不起作用
+
+```java
+return"<script>alert(" + foodTypeResultVO.getMessage() + ");</script>";
+```
+
+> ​	解决：加两个引号
+
+```java
+return"<script>alert('" + foodTypeResultVO.getMessage() + "');</script>";
+```
+
+# 弹框之后白屏没回到原来的页面
+
+>解决：加上 window.location.href=地址;
+
+```java
+    return"<script>alert('" + MessageConstant.FOODTYPE_NAME_CANNOT_BE_EMPTY + "');" +
+                "window.location.href=\"/foodType?method=search\";</script>";
+```
+

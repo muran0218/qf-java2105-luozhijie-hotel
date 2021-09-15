@@ -65,6 +65,20 @@ public class FoodServiceImpl implements IFoodService {
     }
 
     @Override
+    public ResultVO<List<Food>> findByTypeId(Integer typeId) {
+        try {
+            //调方法
+            List<Food> foodList = foodDao.findByTypeId(typeId);
+            if (foodList.size() > 0) {
+                return ResultVO.ok(MessageConstant.QUERY_FOOD_LIST_SUCCESS,foodList);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ResultVO.error(MessageConstant.QUERY_FOOD_LIST_FAIL);
+    }
+
+    @Override
     public ResultVO<Food> findById(Integer foodId) {
         try {
             //调方法

@@ -7,7 +7,9 @@ import com.qf.java2105.lzj.constant.ResponseMessageConstant;
 import com.qf.java2105.lzj.controller.BaseServlet;
 import com.qf.java2105.lzj.entity.ResultVO;
 import com.qf.java2105.lzj.factory.BeanFactory;
+import com.qf.java2105.lzj.pojo.Food;
 import com.qf.java2105.lzj.pojo.FoodType;
+import com.qf.java2105.lzj.service.IFoodService;
 import com.qf.java2105.lzj.service.IFoodTypeService;
 import com.qf.java2105.lzj.service.impl.FoodTypeServiceImpl;
 import com.sun.org.apache.bcel.internal.generic.NEW;
@@ -31,6 +33,7 @@ import java.util.Map;
 @WebServlet("/foodType")
 public class FoodTypeController extends BaseServlet {
     private IFoodTypeService foodTypeService = (IFoodTypeService) BeanFactory.getBean("foodTypeService");
+    private IFoodService foodService = (IFoodService) BeanFactory.getBean("foodService");
 
     /**
      * 模糊查询
@@ -58,7 +61,8 @@ public class FoodTypeController extends BaseServlet {
             request.setAttribute("foodTypeById",foodTypeResultVO.getData());
             return ResponseMessageConstant.PREFIX_FORWARD+ request.getContextPath()+"/backend/detail/foodtype/foodtype-update.jsp";
         }
-        return "<script>alert(" + MessageConstant.FOODTYPE_ID_CANNOT_BE_EMPTY + ");</script>";
+        return "<script>alert('" + MessageConstant.FOODTYPE_ID_CANNOT_BE_EMPTY + "');" +
+                "window.location.href=\"/foodType?method=search\";</script>";
 
     }
 
@@ -83,7 +87,8 @@ public class FoodTypeController extends BaseServlet {
             e.printStackTrace();
         }
         //修改失败
-        return"<script>alert(" + foodTypeResultVO.getMessage() + ");</script>";
+        return"<script>alert('" + foodTypeResultVO.getMessage() + "');" +
+                "window.location.href=\"/foodType?method=search\";</script>";
     }
 
     /**
@@ -94,18 +99,27 @@ public class FoodTypeController extends BaseServlet {
         String typeId = request.getParameter("typeId");
         //判断id是否为空
         if (!StringUtils.isEmpty(typeId)) {
-            //调方法
-            ResultVO<Integer> foodTypeResultVO = foodTypeService.deleteById(Integer.valueOf(typeId));
-            //判断dao层方法是否成功
-            if (foodTypeResultVO.getSuccess()) {
-                //成功去查询列表控制层
-                return ResponseMessageConstant.PREFIX_REDIRECT+request.getContextPath()+"/foodType?method=search";
+            //先判断这个菜系下有没有菜品
+            ResultVO<List<Food>> foodResultVO = foodService.findByTypeId(Integer.valueOf(typeId));
+            if (foodResultVO.getData() == null) {
+                //底下没有菜品就删除
+                //调方法
+                ResultVO<Integer> foodTypeResultVO = foodTypeService.deleteById(Integer.valueOf(typeId));
+                //判断dao层方法是否成功
+                if (foodTypeResultVO.getSuccess()) {
+                    //成功去查询列表控制层
+                    return ResponseMessageConstant.PREFIX_REDIRECT+request.getContextPath()+"/foodType?method=search";
+                }
+                //失败
+                return"<script>alert('" + foodTypeResultVO.getMessage() + "');" +
+                        "window.location.href=\"/foodType?method=search\";</script>";
             }
-            //失败
-            return"<script>alert(" + foodTypeResultVO.getMessage() + ");</script>";
-        }
+            //失败 存在关联菜品
+            return"<script>alert('" + MessageConstant.FAILED_TO_DELETE_DISHES_BECAUSE_ASSOCIATED_DISHES_EXIST + "');" +
+                    "window.location.href=\"/foodType?method=search\";</script>";        }
         //id为空
-        return"<script>alert(" + MessageConstant.FOODTYPE_ID_CANNOT_BE_EMPTY + ");</script>";
+        return"<script>alert('" + MessageConstant.FOODTYPE_ID_CANNOT_BE_EMPTY + "');" +
+                "window.location.href=\"/foodType?method=search\";</script>";
     }
     /**
      * 新增
@@ -126,10 +140,12 @@ public class FoodTypeController extends BaseServlet {
                 return ResponseMessageConstant.PREFIX_FORWARD+request.getContextPath()+"/foodType?method=search";
             }
             //失败
-            return"<script>alert(" + foodTypeResultVO.getMessage() + ");</script>";
+            return"<script>alert('" + foodTypeResultVO.getMessage() + "');" +
+                    "window.location.href=\"/foodType?method=search\";</script>";
         }
         //菜系名为空
-        return"<script>alert(" + MessageConstant.FOODTYPE_NAME_CANNOT_BE_EMPTY + ");</script>";
+        return"<script>alert('" + MessageConstant.FOODTYPE_NAME_CANNOT_BE_EMPTY + "');" +
+                "window.location.href=\"/foodType?method=search\";</script>";
     }
     /**
      * 校验菜系名称
@@ -142,7 +158,8 @@ public class FoodTypeController extends BaseServlet {
             return JSON.toJSONString(resultVO);
         }
         //菜系名为空
-        return"<script>alert(" + MessageConstant.FOODTYPE_NAME_CANNOT_BE_EMPTY + ");</script>";
+        return"<script>alert('" + MessageConstant.FOODTYPE_NAME_CANNOT_BE_EMPTY + "');" +
+                "window.location.href=\"/foodType?method=search\";</script>";
     }
 
     /**

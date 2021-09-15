@@ -19,6 +19,13 @@ public interface IFoodService {
     ResultVO<List<Food>> findByName(String foodName);
 
     /**
+     * 根据菜系id查询
+     * @param typeId 菜系id
+     * @return 结果
+     */
+    ResultVO<List<Food>> findByTypeId(Integer typeId);
+
+    /**
      * 根据ID
      * @param foodId 食品id
      * @return 结果

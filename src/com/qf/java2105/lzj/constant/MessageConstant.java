@@ -21,6 +21,7 @@ public interface MessageConstant {
     String UPDATE_FOODTYPE_FAIL = "修改菜系失败";
     String DELETE_FOODTYPE_SUCCESS = "删除菜系表成功";
     String DELETE_FOODTYPE_FAIL = "删除菜系失败";
+    String FAILED_TO_DELETE_DISHES_BECAUSE_ASSOCIATED_DISHES_EXIST = "存在关联菜品,删除菜系失败!";
     String SAVE_FOODTYPE_SUCCESS = "新增菜系表成功";
     String SAVE_FOODTYPE_FAIL = "新增菜系失败";
 

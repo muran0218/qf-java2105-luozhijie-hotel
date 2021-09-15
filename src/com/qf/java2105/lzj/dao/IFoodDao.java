@@ -20,6 +20,12 @@ public interface IFoodDao {
     List<Map<String,Object>> findByName(String foodName) throws SQLException;
 
     /**
+     * 根据菜系id查询
+     * @param typeId 菜系id
+     * @return 结果
+     */
+    List<Food> findByTypeId(Integer typeId) throws SQLException;
+    /**
      * 根据id查询
      * @param foodId 食品id
      * @return food实体
