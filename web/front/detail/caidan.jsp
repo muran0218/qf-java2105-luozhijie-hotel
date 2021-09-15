@@ -30,7 +30,12 @@
 									<a href="/food?method=findById&foodId=${food.foodId}">${food.foodName}</a>
 								</dd>
 								<dd class="f2">
-									<a href="/food?method=findById&foodId=${food.foodId}">${food.foodPrice}</a>
+									<c:if test="${sessionScope.user.isMember == 0}">
+									<a href="/food?method=findById&foodId=${food.foodId}">价格：${food.foodPrice}</a>
+									</c:if>
+									<c:if test="${sessionScope.user.isMember == 1}">
+										<a href="/food?method=findById&foodId=${food.foodId}">会员价格：${food.foodMprice}</a>
+									</c:if>
 								</dd>
 							</dl>
 						</li>

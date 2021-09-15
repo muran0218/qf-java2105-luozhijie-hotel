@@ -25,7 +25,12 @@
 				</div>
 				<div class="menu3_right">
 					<p>菜名:${foods.foodName}</p>
+					<c:if test="${sessionScope.user.isMember == 0}">
 					<p>价格:&yen;&nbsp;${foods.foodPrice}</p>
+					</c:if>
+					<c:if test="${sessionScope.user.isMember == 1}">
+						<p>会员价格:&yen;&nbsp;${foods.foodMprice}</p>
+					</c:if>
 					<p>简介:${foods.foodDesc}</p>
 				</div>
 			</div>
@@ -50,34 +55,22 @@
 			</div>
 
 			<div id="dish_2">
-				<ul>
-					
+				<ul style="height:250px;overflow-y:scroll;">
+					<c:forEach  items="${sessionScope.front_types}" var="type" >
 						<li>
-							<a href="caidan.html">粤菜</a>
+							<a href="javascript:void(0);" onclick="findByPageAndCondition(${type.typeId})">${type.typeName}</a>
 						</li>
-					
-						<li>
-							<a href="chuancai.html">川菜</a>
-						</li>
-					
-						<li>
-							<a href="chuancai.html">湘菜</a>
-						</li>
-					
-						<li>
-							<a href="chuancai.html">东北菜</a>
-						</li>
-					
+					</c:forEach>
 				</ul>
 			</div>
 			<div id="dish_3">
 				<!-- 搜索菜品表单  -->
-				<form action="#" method="post">
+				<form action="/front" method="post">
 					<table width="166px">
 						<tr>
 							<td>
-								<input type="text" id="dish_name" name="foodName" class="select_value" /> 
-								<input type="hidden" value="selectFood" name="method">
+								<input type="text" id="dish_name" name="foodName" class="select_value" value="${foodName}" placeholder="请输入菜品名称" />
+								<input type="hidden" value="findByPageAndCondition" name="method">
 							</td>
 						</tr>
 						<tr>
@@ -85,7 +78,7 @@
 						</tr>
 						<tr>
 							<td>
-								<a href="#">
+								<a href="/front?method=findByPageAndCondition">
 									<img src="${front_detail_path}/style/images/look.gif" />
 								</a>
 							</td>
@@ -96,4 +89,9 @@
 		</div>
 	</div>
 </body>
+<script>
+	function findByPageAndCondition(typeId){
+		location.href = "/front?method=findByPageAndCondition&typeId=" + typeId;
+	}
+</script>
 </html>

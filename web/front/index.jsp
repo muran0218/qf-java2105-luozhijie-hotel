@@ -85,7 +85,6 @@
 	$(function () {
 		//打开首页就去加载菜系数据
 		$.get("/foodType?method=findAll", {}, function (result) {
-			console.log(result);
 		}, "json");
 	})
 </script>
