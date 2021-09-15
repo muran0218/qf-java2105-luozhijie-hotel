@@ -36,8 +36,8 @@
 			</div>
 			<div class="menu4">
 				
-				<a href="clientCart.html" style="background:url(style/images/img/order_left_corner_bg.png);">放入餐车</a>
-				<a href="#" onclick="javascript:history.go(-1);" style="background:url(style/images/img/order_right_corner_bg.png);">返回</a>
+				<a href="clientCart.html" style="background:url(${front_detail_path}/style/images/img/order_left_corner_bg.png);">放入餐车</a>
+				<a href="#" onclick="javascript:history.go(-1);" style="background:url(${front_detail_path}/style/images/img/order_right_corner_bg.png);">返回</a>
 			</div>
 		</div>
 		
@@ -47,7 +47,8 @@
 				<ul>
 				<li class="dish_num"></li>
 					<li>
-						<a href="clientOrderList.html">
+						<%--<a href="clientOrderList.html">--%>
+							<a href="/front?method=findByPageAndCondition">
 							<img src="${front_detail_path}/style/images/call2.gif" />
 						</a>
 					</li>

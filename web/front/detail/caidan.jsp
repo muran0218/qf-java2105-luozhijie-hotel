@@ -95,7 +95,7 @@
 				<ul>
 				<li class="dish_num"></li>
 					<li>
-						<a href="clientOrderList.html">
+						<a href="/front?method=findByPageAndCondition">
 							<img src="${front_detail_path}/style/images/call2.gif" />
 						</a>
 					</li>
