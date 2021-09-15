@@ -1,6 +1,6 @@
 ﻿
-
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="style/js/jquery.js"></script>
 	<script type="text/javascript" src="style/js/page_common.js"></script>
     <link href="style/css/common_style_blue.css" rel="stylesheet" type="text/css" />
-	
+
 	<style type="text/css">
 <!--
 body {
@@ -117,8 +117,12 @@ margin-left: 10px;
 		<!-- 欢迎用户的文字 -->
 		<div id="Head_1_UserWelcome">
 			<img border="0" width="13" height="14" src="style/images/user.gif" />
-
-			您好，<b>管理员</b>
+			<c:if test="${sessionScope.user != null}">
+			您好，<b>${sessionScope.user.userName}</b>
+		</c:if>
+			<c:if test="${sessionScope.user == null}">
+				您好。
+			</c:if>
 		</div>
 		<!-- 一些链接按钮 -->
 		<div id="Head_1_FunctionButton">
